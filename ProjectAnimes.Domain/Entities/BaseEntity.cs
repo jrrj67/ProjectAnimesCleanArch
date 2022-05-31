@@ -5,6 +5,7 @@
         public Guid Id { get; protected set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
-        public abstract bool Validate();
+        public abstract bool ValidateEntity();
+        public abstract bool ValidateProperty(string propertyName);
     }
 }

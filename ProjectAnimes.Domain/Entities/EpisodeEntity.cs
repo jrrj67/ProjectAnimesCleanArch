@@ -2,9 +2,11 @@
 
 namespace ProjectAnimes.Domain.Entities
 {
-    public sealed class AnimeEntity : BaseEntity
+    public sealed class EpisodeEntity : BaseEntity
     {
-        private readonly AnimeValidator _validator = new AnimeValidator();
+        private readonly EpisodeValidator _validator = new EpisodeValidator();
+
+        public Guid SeasonId { get; }
 
         private string _name = string.Empty;
         public string Name
@@ -17,14 +19,27 @@ namespace ProjectAnimes.Domain.Entities
             }
         }
 
+        private string _url = string.Empty;
+        public string Url
+        {
+            get => _url;
+            set
+            {
+                _url = value;
+                ValidateProperty(nameof(Url));
+            }
+        }
+
         // Nav props
 
-        public ICollection<SeasonEntity>? Seasons { get; set; }
+        public SeasonEntity? Season { get; set; }
 
-        public AnimeEntity(Guid id, string name)
+        public EpisodeEntity(Guid id, string name, string url, Guid seasonId)
         {
             Id = id;
             Name = name;
+            Url = url;
+            SeasonId = seasonId;
             ValidateEntity();
         }
 
