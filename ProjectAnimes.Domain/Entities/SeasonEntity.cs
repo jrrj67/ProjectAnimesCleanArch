@@ -5,10 +5,10 @@ namespace ProjectAnimes.Domain.Entities
     public sealed class SeasonEntity : BaseEntity
     {
         private readonly SeasonValidator _validator = new SeasonValidator();
-
-        public Guid AnimeId { get; }
-
         private int _number;
+        private string _description = string.Empty;
+        
+        public Guid AnimeId { get; }
         public int Number
         {
             get => _number;
@@ -18,8 +18,6 @@ namespace ProjectAnimes.Domain.Entities
                 ValidateProperty(nameof(Number));
             }
         }
-
-        private string _description = string.Empty;
         public string Description
         {
             get => _description;
@@ -31,8 +29,8 @@ namespace ProjectAnimes.Domain.Entities
         }
 
         // Nav props
-
         public AnimeEntity? Anime { get; set; }
+
         public ICollection<EpisodeEntity>? Episodes { get; set; }
 
         public SeasonEntity(Guid id, int number, string description, Guid animeId)
@@ -41,12 +39,6 @@ namespace ProjectAnimes.Domain.Entities
             Number = number;
             Description = description;
             AnimeId = animeId;
-            ValidateEntity();
-        }
-
-        public override bool ValidateEntity()
-        {
-            return this.ValidateEntity(_validator);
         }
 
         public override bool ValidateProperty(string propertyName)

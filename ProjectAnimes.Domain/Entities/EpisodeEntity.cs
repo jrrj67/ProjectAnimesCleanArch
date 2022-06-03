@@ -5,10 +5,9 @@ namespace ProjectAnimes.Domain.Entities
     public sealed class EpisodeEntity : BaseEntity
     {
         private readonly EpisodeValidator _validator = new EpisodeValidator();
-
-        public Guid SeasonId { get; }
-
         private string _name = string.Empty;
+        private string _url = string.Empty;
+        
         public string Name
         {
             get => _name;
@@ -18,8 +17,6 @@ namespace ProjectAnimes.Domain.Entities
                 ValidateProperty(nameof(Name));
             }
         }
-
-        private string _url = string.Empty;
         public string Url
         {
             get => _url;
@@ -29,9 +26,9 @@ namespace ProjectAnimes.Domain.Entities
                 ValidateProperty(nameof(Url));
             }
         }
+        public Guid SeasonId { get; }
 
         // Nav props
-
         public SeasonEntity? Season { get; set; }
 
         public EpisodeEntity(Guid id, string name, string url, Guid seasonId)
@@ -40,12 +37,6 @@ namespace ProjectAnimes.Domain.Entities
             Name = name;
             Url = url;
             SeasonId = seasonId;
-            ValidateEntity();
-        }
-
-        public override bool ValidateEntity()
-        {
-            return this.ValidateEntity(_validator);
         }
 
         public override bool ValidateProperty(string propertyName)
